@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
 
 app.set("view engine", "pug");
 app.set("views", "./views");
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.render("index", { title: "Hey", message: "Hello there!", time: Date() });
@@ -27,9 +30,19 @@ app.get("/form", (req, res) => {
   res.render("form");
 });
 
-app.post("/form_receiver", (req, res) => {
+app.get("/form_receiver", (req, res) => {
   var title = req.query.title;
   var description = req.query.description;
+  res.send(title + "," + description);
+});
+
+app.get("/form_post", (req, res) => {
+  res.render("form_post");
+});
+
+app.post("/form_receiver_post", (req, res) => {
+  var title = req.body.title;
+  var description = req.body.description;
   res.send(title + "," + description);
 });
 
