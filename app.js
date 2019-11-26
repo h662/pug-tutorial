@@ -23,6 +23,16 @@ app.get("/topic/:id/:mode", (req, res) => {
   res.send(req.params.id + "," + req.params.mode);
 });
 
+app.get("/form", (req, res) => {
+  res.render("form");
+});
+
+app.post("/form_receiver", (req, res) => {
+  var title = req.query.title;
+  var description = req.query.description;
+  res.send(title + "," + description);
+});
+
 app.listen(3000, () => {
   console.log("Connected 3000 port");
 });
